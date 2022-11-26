@@ -12,3 +12,15 @@ def get_urls(body: Body):
         'success': True,
         'body': results
     }
+
+
+@app.post('/files')
+async def get_file_urls(file: UploadFile = File()):
+    lines: List[bytes] = file.file.readlines()
+
+    results: Results = [Utils.find_urls_str(line.decode()) for line in lines if len(line) != 0][0]
+
+    return {
+        'success': True,
+        'body': results
+    }

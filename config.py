@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
 from re import Pattern
@@ -10,7 +10,7 @@ from typing import List, Tuple, Dict
 Matches = List[Tuple[str]]
 Results = List[Dict[str, str]]
 
-__all__: List[str] = ['Config', 'FastAPI', 'Body', 'Matches', 'Results', 'Pattern']
+__all__: List[str] = ['Config', 'FastAPI', 'Body', 'Matches', 'Results', 'Pattern', 'UploadFile', 'File', 'List']
 
 
 class Body(BaseModel):
@@ -25,7 +25,7 @@ class Config:
             allow_origins=['*'],
             allow_credentials=True,
             allow_methods=['POST'],
-            allow_headers=['Content-Type', 'Accept']
+            allow_headers=['*']
         )
 
     @property
