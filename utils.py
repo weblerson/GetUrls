@@ -1,11 +1,10 @@
-import re
-from config import Matches, Pattern, Results
+from config import Results, BeautifulSoup
 
 
 class Utils:
     @staticmethod
     def find_urls_str(content: str) -> Results:
-        regex: Pattern = re.compile(r"(<(.+) href\s?=\s?(['\"])(.*?)\3.*>.*<\/\2>)")
-        matches: Matches = regex.findall(content)
+        soup: BeautifulSoup = BeautifulSoup(content, 'html.parser')
+        results: Results = list(map(lambda a: {'html': str(a), 'url': a.get('href')}, soup.find_all('a', href=True)))
 
-        return list(map(lambda x: {'html': x[0], 'url': x[3]}, matches))
+        return results
